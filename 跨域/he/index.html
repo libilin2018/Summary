@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp 跨域</title>
+</head>
+<body>
+	
+	<h1>跨域 test</h1>
+	<!-- <script type="text/javascript">
+		function test (param) {
+			console.log(param);
+		}
+	</script> -->
+
+	<script type="text/javascript">
+		// var arr = {name: 'billy'};
+		// var json = JSON.stringify(arr);
+		// var name = 'fu'
+		// console.log(`${json}`.name);
+		function Jsonp(url, cb) {
+			this.callbackName = 'jsonp_' + Date.now();
+			this.cb = cb;
+			this.url = url;
+			this.init();
+		}
+
+		Jsonp.prototype.init = function () {
+			if (~this.url.indexOf('?')) {
+				this.url = this.url + '&callback=' + this.callbackName;
+			} else {
+				this.url = this.url + '?callback=' + this.callbackName;
+			}
+			this.createCallBack();
+			this.createScript();
+		}
+
+		Jsonp.prototype.createScript = function () {
+			var script = document.createElement('script');
+			script.src = this.url;
+			script.onload = function () {
+				// this.remove();
+				delete window[this.callbackName];
+			}
+			document.body.appendChild(script);
+		}
+
+		Jsonp.prototype.createCallBack = function () {
+			window[this.callbackName] = this.cb;
+		}
+
+		new Jsonp('http://localhost:3000/search?keywords=海阔天空', function(data) {
+			console.log(data.result)
+		})
+	</script>
+</body>
+</html>

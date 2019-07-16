@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        setTimeout(() => {
+            console.log(0);
+        }, 0)
+        new Promise((resolve, reject) => {
+            console.log(2);
+            resolve(1);
+        }).then(res => {
+            console.log(3)
+        })
+        console.log(1);
+    </script>
+</body>
+
+</html>

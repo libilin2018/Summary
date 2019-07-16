@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>节流和防抖</title>
+</head>
+<body>
+  <input type="text" id="inp" />
+<script>
+  // 防抖 高频事件在n秒内只执行一次，如果事件再次执行，会重新计算时间；就是说一系列联系触发后，只会执行最后一次触发的事件
+  function debounce (fn) {
+    let timeout = null;
+    return function () {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        // this 将sayHello的执行上下文转移到input对象，而不是window对象
+        // arguments 是传入的InputEvent对象
+        fn.apply(this, arguments);
+      }, 500);
+    }
+  }
+  function sayHello () {
+    console.log(this, arguments[0]);
+    console.log('HI');
+  }
+  var inp = document.getElementById('inp');
+  inp.addEventListener('input', debounce(sayHello))
+
+  /**
+  * 节流 高频事件触发，n秒内只执行一次，降低函数的执行频率
+  */
+  function throttle (fn) {
+    let canRun = true;
+    return function () {
+      if (!canRun) return false;
+      canRun = false;
+      setTimeout(() => {
+        fn.apply(this, arguments);
+        canRun = true;
+      }, 500);
+    } 
+  }
+  function sayDetail (e) {
+    console.log(e.target.innerWidth, e.target.innerHeight);
+  }
+  window.addEventListener('resize', throttle(sayDetail))
+</script>
+</body>
+</html>
