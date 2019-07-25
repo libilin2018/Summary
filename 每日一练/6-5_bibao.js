@@ -39,24 +39,24 @@
 // }, 1000 * i);
 
 // promise
-// const tasks = [];
-// var output = (i) => new Promise(resolve => {
-//     setTimeout(() => {
-//         console.log(i);
-//         resolve(i);
-//     }, 1000 * i)
-// });
-// for (let i = 0; i < 5; i++) {
-//     tasks.push(output(i));
-// }
+const tasks = [];
+var output = (i) => new Promise(resolve => {
+    setTimeout(() => {
+        console.log(i);
+        resolve(i);
+    }, 1000 * i)
+});
+for (let i = 0; i < 5; i++) {
+    tasks.push(output(i));
+}
 
-// Promise.all(tasks).then(res => {
-//     setTimeout(() => {
-//         console.log(res[res.length - 1] + 1);
-//     }, 1000)
-// })
+Promise.all(tasks).then(res => {
+    setTimeout(() => {
+        console.log(res[res.length - 1] + 1);
+    }, 1000)
+})
 
-// async/await
+/* // async/await
 const sleep = timeoutMS => new Promise(resolve => {
     setTimeout(resolve, timeoutMS);
 });
@@ -69,4 +69,4 @@ const sleep = timeoutMS => new Promise(resolve => {
     }
     await sleep(1000);
     console.log(i);
-})();
+})(); */
