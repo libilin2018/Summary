@@ -5,3 +5,12 @@ flat() 方法会按照一个可指定的深度递归遍历数组
 */
 console.log([...new Set(arr.toString().split(',').sort((a, b)=>a-b).map(Number))]);
 // console.log(Array.from(new Set(arr.flat(Infinity))).sort((a, b)=>{return a - b}));
+
+function flatten (arr) {
+  while (arr.some(item => Array.isArray(item))) {
+    arr = [].concat(...arr)
+  }
+  return arr
+}
+
+console.log(flatten(arr))
