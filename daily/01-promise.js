@@ -22,11 +22,20 @@ const taskC = new Promise((resolve, reject) => {
     }, 2000);
 })
 
-/* Promise._race = promises => new Promise((resolve, reject) => {
+/* 
+只要给定的迭代中的一个promise解决或拒绝，就采用第一个promise的值作为它的值，从而异步地解析或拒绝
+*/
+Promise._race = promises => new Promise((resolve, reject) => {
     promises.forEach(promise => {
         promise.then(resolve, reject)
     })
-}) */
+})
+
+Promise._race([taskA, taskB, taskC]).then(value => {
+    console.log(value)
+}).catch(err => {
+    console.log(err)
+})
 
 /* 
 Promise.all 错误处理
@@ -54,11 +63,11 @@ function promiseAll(promises){
         }
     })
 }
-promiseAll([taskA, taskB]).then(function(value){
-    console.log('resolve' + value)
-}).catch(value => {
-    console.log('reject' + value)
-})
+// promiseAll([taskA, taskB]).then(function(value){
+//     console.log('resolve' + value)
+// }).catch(value => {
+//     console.log('reject' + value)
+// })
 
 
 

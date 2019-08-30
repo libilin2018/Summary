@@ -23,7 +23,7 @@ console.log(flatten(arr))
 function randomInt (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + 1
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 let initArr = Array.from({length: 20}, () => randomInt(1, 100))
 // 放入hash表
