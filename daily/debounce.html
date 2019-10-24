@@ -21,6 +21,15 @@
   //     }, 500);
   //   }
   // }
+  function debounce (fn) {
+    let timeout = null;
+    return function () {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        fn.apply(this, arguments)
+      }, 500)
+    }
+  }
   function deBounce (fn, wait = 500, immediate = true) {
     let timer, context, args;
 
@@ -60,6 +69,25 @@
   /**
   * 节流 高频事件触发，n秒内只执行一次，降低函数的执行频率
   */
+  function throttle (fn) {
+    let canRun = true;
+    return function () {
+      if (!canRun) return;
+      canRun = false;
+      setTimeout(() => {
+        fn.apply(this, arguments)
+        canRun = true
+      }, 500)
+    }
+  }
+
+
+
+
+
+
+
+
   function throttle (fn) {
     let canRun = true;
     return function () {
